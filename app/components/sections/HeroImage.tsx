@@ -1,6 +1,6 @@
 import {useRef} from 'react';
 import {Button, Text, Link} from '~/components';
-import {SanityImage, Caption} from '~/components/elements';
+import {SanityImage, HeroCaption} from '~/components/objects';
 import {SanitySectionHeroImage} from '~/types';
 import {sanityConfig} from '~/lib/sanity';
 import type {SerializeFrom} from '@shopify/remix-oxygen';
@@ -46,13 +46,15 @@ export function HeroImage({
               <h2 className="max-w-lg text-d9 uppercase text-light">{title}</h2>
             )}
             {button && (
-              <Button to={button.to} width="auto">
+              <Button to={button.to} target={button?.target} width="auto">
                 {button.title}
               </Button>
             )}
           </div>
           <div className="flex items-end justify-between gap-4">
-            {caption && <Caption className="text-p3">{caption}</Caption>}
+            {caption && (
+              <HeroCaption className="text-p3">{caption}</HeroCaption>
+            )}
             {/* scroll down */}
 
             <button

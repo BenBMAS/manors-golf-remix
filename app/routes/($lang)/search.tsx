@@ -33,7 +33,7 @@ export default function () {
         <Heading as="h1" size="copy">
           Search
         </Heading>
-        <Form method="get" className="relative flex w-full text-heading">
+        <Form method="get" className="relative flex w-full text-d4">
           <Input
             defaultValue={searchTerm}
             placeholder="Search…"

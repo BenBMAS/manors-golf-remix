@@ -30,9 +30,9 @@ export function Text({
   };
 
   const sizes: Record<string, string> = {
-    lead: 'text-lead font-medium',
-    copy: 'text-copy',
-    fine: 'text-fine subpixel-antialiased',
+    lead: 'text-h5 font-medium',
+    copy: 'text-p4',
+    fine: 'text-p1 subpixel-antialiased',
   };
 
   const widths: Record<string, string> = {
@@ -72,10 +72,10 @@ export function Heading({
   width?: 'default' | 'narrow' | 'wide';
 } & React.HTMLAttributes<HTMLHeadingElement>) {
   const sizes = {
-    display: 'font-bold text-display',
-    heading: 'font-bold text-heading',
-    lead: 'font-bold text-lead',
-    copy: 'font-medium text-copy',
+    display: 'font-bold text-d7',
+    heading: 'font-bold text-d4',
+    lead: 'font-bold text-h5',
+    copy: 'font-medium text-p4',
   };
 
   const widths = {

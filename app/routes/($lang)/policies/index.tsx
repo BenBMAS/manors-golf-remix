@@ -45,7 +45,7 @@ export default function Policies() {
         {policies.map((policy) => {
           return (
             policy && (
-              <Heading className="font-normal text-heading" key={policy.id}>
+              <Heading className="font-normal text-d4" key={policy.id}>
                 <Link to={`/policies/${policy.handle}`}>{policy.title}</Link>
               </Heading>
             )

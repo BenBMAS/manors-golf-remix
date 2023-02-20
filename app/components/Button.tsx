@@ -24,12 +24,12 @@ export const Button = forwardRef(
     const Component = props?.to ? Link : as;
 
     const baseButtonClasses =
-      'inline-block rounded font-medium text-center py-3 px-6';
+      'inline-block rounded-3xl uppercase text-h3 leading-[0.9] text-center py-5 px-8';
 
     const variants = {
-      primary: `${baseButtonClasses} bg-primary text-contrast`,
-      secondary: `${baseButtonClasses} border border-primary/10 bg-contrast text-primary`,
-      inline: 'border-b border-primary/10 leading-none pb-1',
+      primary: `${baseButtonClasses} bg-light text-dark`,
+      secondary: `${baseButtonClasses} border border-dark/10 bg-dark text-light`,
+      inline: 'border-b border-dark/10 leading-none pb-1',
     };
 
     const widths = {

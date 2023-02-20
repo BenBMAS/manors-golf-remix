@@ -13,10 +13,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // TODO: delete these
         primary: withOpacityValue('--color-primary'),
         contrast: withOpacityValue('--color-contrast'),
         notice: withOpacityValue('--color-accent'),
-        shopPay: 'var(--color-shop-pay)',
+
+        /* Whites */
+        white: withOpacityValue('--color-white'),
+        offWhite: withOpacityValue('--color-off-white'),
+        light: withOpacityValue('--color-bleached-silk'),
+
+        /* Blacks */
+        black: withOpacityValue('--color-black'),
+        dark: withOpacityValue('--color-eerie-black'),
+
+        /* Greys */
+        davys: withOpacityValue('--color-davys-grey'),
+
+        /* Greens */
+        olive: withOpacityValue('--color-black-olive'),
+        camo: withOpacityValue('--color-rifle-green'),
       },
       screens: {
         sm: '32em',
@@ -55,11 +71,26 @@ module.exports = {
         serif: ['"IBMPlexSerif"', 'Palatino', 'ui-serif'],
       },
       fontSize: {
-        display: ['var(--font-size-display)', '1.1'],
-        heading: ['var(--font-size-heading)', '1.25'],
-        lead: ['var(--font-size-lead)', '1.333'],
-        copy: ['var(--font-size-copy)', '1.5'],
-        fine: ['var(--font-size-fine)', '1.333'],
+        // Dispaly
+        d9: ['4.5rem', {lineHeight: '0.9', fontWeight: '600'}],
+        d8: ['3.75rem', {lineHeight: '0.9', fontWeight: '600'}],
+        d7: ['3rem', {lineHeight: '0.95', fontWeight: '600'}],
+        d6: ['2.5rem', {lineHeight: '0.95', fontWeight: '600'}],
+        d5: ['2.25rem', {lineHeight: '0.95', fontWeight: '600'}],
+        d4: ['2rem', {lineHeight: '0.95', fontWeight: '600'}],
+        d3: ['1.625rem', {lineHeight: '0.95', fontWeight: '600'}],
+        // Heading
+        h8: ['1.875rem', {lineHeight: '1.3', fontWeight: '500'}],
+        h6: ['1.25rem', {lineHeight: '1.3', fontWeight: '600'}],
+        h5: ['1.125rem', {lineHeight: '1.3', fontWeight: '600'}],
+        h4: ['1rem', {lineHeight: '1.3', fontWeight: '600'}],
+        h3: ['0.8125rem', {lineHeight: '1.5', fontWeight: '600'}],
+        // Paragraph
+        p9: ['2.75rem', {lineHeight: '1.3', fontWeight: '400'}],
+        p8: ['1.875rem', {lineHeight: '1.3', fontWeight: '400'}],
+        p4: ['1rem', {lineHeight: '1.6', fontWeight: '400'}],
+        p3: ['0.8125rem', {lineHeight: '1.5', fontWeight: '400'}],
+        p1: ['0.625rem', {lineHeight: '1.5', fontWeight: '400'}],
       },
       maxWidth: {
         'prose-narrow': '45ch',

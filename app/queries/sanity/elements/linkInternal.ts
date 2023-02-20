@@ -4,6 +4,7 @@ export const LINK_INTERNAL = groq`
   _key,
   _type,
   title,
+  "target": "",
   ...reference-> {
     "documentType": _type,
     (_type == "collection") => {

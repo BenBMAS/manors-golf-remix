@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export function Caption({
+export function HeroCaption({
   as: Component = 'h3',
   className,
   children,

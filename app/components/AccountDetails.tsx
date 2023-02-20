@@ -7,7 +7,7 @@ export function AccountDetails({customer}: {customer: Customer}) {
   return (
     <>
       <div className="grid w-full gap-4 p-4 py-6 md:gap-8 md:p-8 lg:p-12">
-        <h3 className="font-bold text-lead">Account Details</h3>
+        <h3 className="font-bold text-h5">Account Details</h3>
         <div className="lg:p-8 p-6 border border-gray-200 rounded">
           <div className="flex">
             <h3 className="font-bold text-base flex-1">Profile & Security</h3>

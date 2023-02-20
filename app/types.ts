@@ -1,4 +1,6 @@
 import type {Image} from '@sanity/types';
+
+import {Cart} from '@shopify/hydrogen/storefront-api-types';
 // import type {
 //   Collection,
 //   Customer,
@@ -33,7 +35,7 @@ export type SanityLinkInternal = {
   documentType?: string;
   to: string;
   title?: string;
-  target: undefined;
+  target: '';
 };
 
 export interface SanityAssetImage extends Image {
@@ -58,7 +60,7 @@ export type SanityCollection = {
   image?: string;
 };
 
-export type SanityMenus = {
+export type SanityMenu = {
   primary: SanityLink[];
   secondary: SanityLink[];
   desktop: SanityLink[];
@@ -72,8 +74,17 @@ export type SanityFooter = {
 };
 
 export type SanitySettings = {
-  menu: SanityMenus;
+  menu: SanityMenu;
   footer: SanityFooter;
+};
+
+export type LayoutData = SanitySettings & {
+  shop: {
+    id: string;
+    name: string;
+    description: string;
+  };
+  cart?: Promise<Cart>;
 };
 
 /**

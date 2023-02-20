@@ -2,7 +2,7 @@ import type {SerializeFrom} from '@shopify/remix-oxygen';
 
 import {SanitySection} from '~/types';
 
-import Section from './Section';
+import {Section} from '~/components/layout';
 
 export function Sections({
   sections,

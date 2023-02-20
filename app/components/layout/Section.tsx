@@ -6,7 +6,7 @@ type Props = {
   section: SerializeFrom<SanitySection>;
 };
 
-export default function Section({section}: Props) {
+export function Section({section}: Props) {
   switch (section._type) {
     case 'section.heroImage':
       return <HeroImage section={section} />;

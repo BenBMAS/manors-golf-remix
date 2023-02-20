@@ -25,12 +25,18 @@ import {GenericError} from './components/GenericError';
 import {NotFound} from './components/NotFound';
 
 import styles from './styles/app.css';
+import fonts from './styles/fonts.css';
 import favicon from '../public/favicon.svg';
 
 import {DEFAULT_LOCALE, parseMenu, type EnhancedMenu} from './lib/utils';
 import invariant from 'tiny-invariant';
 import {Shop, Cart} from '@shopify/hydrogen/storefront-api-types';
 import {useAnalytics} from './hooks/useAnalytics';
+import {sanityClient} from '~/lib/sanity';
+import {LINKS} from '~/queries/sanity/elements/links';
+import {COLLECTION} from '~/queries/sanity/objects/collection';
+import groq from 'groq';
+import {LayoutData, SanitySettings} from './types';
 
 const seo: SeoHandleFunction<typeof loader> = ({data, pathname}) => ({
   title: data?.layout?.shop?.name,
@@ -47,6 +53,7 @@ export const handle = {
 export const links: LinksFunction = () => {
   return [
     {rel: 'stylesheet', href: styles},
+    {rel: 'stylesheet', href: fonts},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -67,7 +74,7 @@ export const meta: MetaFunction = () => ({
 export async function loader({context}: LoaderArgs) {
   const [cartId, layout] = await Promise.all([
     context.session.get('cartId'),
-    getLayoutData(context),
+    getLayoutData(),
   ]);
 
   return defer({
@@ -162,86 +169,48 @@ export function ErrorBoundary({error}: {error: Error}) {
   );
 }
 
-const LAYOUT_QUERY = `#graphql
-  query layoutMenus(
-    $language: LanguageCode
-    $headerMenuHandle: String!
-    $footerMenuHandle: String!
-  ) @inContext(language: $language) {
-    shop {
-      id
-      name
-      description
-    }
-    headerMenu: menu(handle: $headerMenuHandle) {
-      id
-      items {
-        ...MenuItem
-        items {
-          ...MenuItem
-        }
+const SETTINGS_QUERY = groq`
+  *[_type == 'settings'][0] {
+    menu {
+      primary[] {
+        ${LINKS}
+      },
+      secondary[] {
+        ${LINKS}
+      },
+      desktop[] {
+        ${LINKS}
       }
+    },
+    footer {
+      collections[]-> {
+        ${COLLECTION}
+      },
+      about[] {
+        ${LINKS}
+      },
+      support[] {
+        ${LINKS}
+      },
+      social[] {
+        ${LINKS}
+      },
     }
-    footerMenu: menu(handle: $footerMenuHandle) {
-      id
-      items {
-        ...MenuItem
-        items {
-          ...MenuItem
-        }
-      }
-    }
-  }
-  fragment MenuItem on MenuItem {
-    id
-    resourceId
-    tags
-    title
-    type
-    url
   }
 `;
 
-export interface LayoutData {
-  headerMenu: EnhancedMenu;
-  footerMenu: EnhancedMenu;
-  shop: Shop;
-  cart?: Promise<Cart>;
-}
+async function getLayoutData() {
+  const settings = await sanityClient.fetch<SanitySettings>(SETTINGS_QUERY);
 
-async function getLayoutData({storefront}: AppLoadContext) {
-  const HEADER_MENU_HANDLE = 'main-menu';
-  const FOOTER_MENU_HANDLE = 'footer';
+  invariant(settings, 'No data returned from Sanity API');
 
-  const data = await storefront.query<LayoutData>(LAYOUT_QUERY, {
-    variables: {
-      headerMenuHandle: HEADER_MENU_HANDLE,
-      footerMenuHandle: FOOTER_MENU_HANDLE,
-      language: storefront.i18n.language,
-    },
-  });
+  const {menu, footer} = settings;
 
-  invariant(data, 'No data returned from Shopify API');
-
-  /*
-    Modify specific links/routes (optional)
-    @see: https://shopify.dev/api/storefront/unstable/enums/MenuItemType
-    e.g here we map:
-      - /blogs/news -> /news
-      - /blog/news/blog-post -> /news/blog-post
-      - /collections/all -> /products
-  */
-  const customPrefixes = {BLOG: '', CATALOG: 'products'};
-
-  const headerMenu = data?.headerMenu
-    ? parseMenu(data.headerMenu, customPrefixes)
-    : undefined;
-
-  const footerMenu = data?.footerMenu
-    ? parseMenu(data.footerMenu, customPrefixes)
-    : undefined;
-
-  return {shop: data.shop, headerMenu, footerMenu};
+  return {
+    shop: {id: '71316930869', name: 'Manors', description: ''},
+    menu,
+    footer,
+  };
 }
 
 const CART_QUERY = `#graphql

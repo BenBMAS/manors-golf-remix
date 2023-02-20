@@ -2,7 +2,7 @@ import {
   json,
   type MetaFunction,
   type SerializeFrom,
-  type LinksFunction,
+  // type LinksFunction,
   type LoaderArgs,
 } from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
@@ -11,7 +11,7 @@ import {Blog} from '@shopify/hydrogen/storefront-api-types';
 import invariant from 'tiny-invariant';
 import {PageHeader, SectionContent} from '~/components';
 import {ATTR_LOADING_EAGER} from '~/lib/const';
-import styles from '../../../styles/custom-font.css';
+// import styles from '../../../styles/custom-font.css';
 import type {SeoHandleFunction} from '@shopify/hydrogen';
 
 const BLOG_HANDLE = 'journal';
@@ -74,9 +74,9 @@ export const meta: MetaFunction = ({
   };
 };
 
-export const links: LinksFunction = () => {
-  return [{rel: 'stylesheet', href: styles}];
-};
+// export const links: LinksFunction = () => {
+//   return [{rel: 'stylesheet', href: styles}];
+// };
 
 export default function Article() {
   const {article, formattedDate} = useLoaderData<typeof loader>();
